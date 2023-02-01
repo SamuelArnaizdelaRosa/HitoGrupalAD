@@ -25,7 +25,7 @@ public class FuncionesCRUD {
 		Document clienteInicial = null;
 		if(db.getCollection("Clientes").countDocuments()<1) {
 
-			Document llamadaInicial = new Document("fechaLlamda", new Date())
+			Document llamadaInicial = new Document("fechaLlamada", new Date())
 					.append("motivoLlamada", "no funciona la linea")
 					.append("problema", "hardware")
 					.append("reparacionFisisa", true)
@@ -40,10 +40,9 @@ public class FuncionesCRUD {
 		return mongoClient;
 	}
 	
-	
 	public static boolean registroNuevoCliente(MongoDatabase db, Cliente c, Llamada l) {
 		
-		Document llamadaInicial = new Document("fechaLlamda", new Date())
+		Document llamadaInicial = new Document("fechaLlamada", new Date())
 				.append("motivoLlamada", l.getMotivoLlamada())
 				.append("problema", l.getProblema())
 				.append("reparacionFisisa", l.isReparacionFisica())
@@ -59,7 +58,14 @@ public class FuncionesCRUD {
 	
 	public static String encontrarCliente(MongoDatabase db,String campo,String valor) {
 		MongoCollection<Document> col = db.getCollection("Clientes");
-		Document findDocument = new Document(campo,valor);
+		Document findDocument;
+		if(campo.equals("telefono")) {
+			int telefono = Integer.parseInt(valor);
+			findDocument = new Document(campo,telefono);
+		}else{
+			findDocument = new Document(campo,valor);
+		}
+		
 		FindIterable<Document> resultDocument = col.find(findDocument);
 		
 		return resultDocument.first().toJson();

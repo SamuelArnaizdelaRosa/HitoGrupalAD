@@ -1,6 +1,10 @@
 package hitoGrupal.WaterMelon;
 
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoDatabase;
 
@@ -25,9 +29,15 @@ public class App {
 		MongoDatabase db = conexion.getDatabase("Watermelon");
 		//db.alumnos.find({fechanacimiento:{$gte:new Date(1970,0,1)}})
 		
-		//FuncionesCRUD.registroNuevoCliente(db, c1, l2);
+		FuncionesCRUD.registroNuevoCliente(db, c1, l2);
 		
-		System.out.println(FuncionesCRUD.encontrarCliente(db, "nombre","Pepe"));
+		String resultado =FuncionesCRUD.encontrarCliente(db, "telefono","699223068");
+		
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		JsonElement je = JsonParser.parseString(resultado);
+		String prettyJsonString = gson.toJson(je);
+		
+		System.out.println(prettyJsonString);
 		
 	}
 }
