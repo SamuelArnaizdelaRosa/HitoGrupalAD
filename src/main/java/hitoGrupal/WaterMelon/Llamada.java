@@ -5,28 +5,19 @@ import java.util.Date;
 
 public class Llamada implements Serializable{
 	
-	private Date fecha;
 	private String motivoLlamada;
 	private String problema;
 	private boolean reparacionFisica;
 	private boolean solucionado;
 	
-	public Llamada(Date fecha, String motivoLlamada, String problema, boolean reparacionFisica, boolean solucionado) {
-		this.fecha = fecha;
+	public Llamada(String motivoLlamada, String problema, boolean reparacionFisica, boolean solucionado) {
 		this.motivoLlamada = motivoLlamada;
 		this.problema = problema;
 		this.reparacionFisica = reparacionFisica;
 		this.solucionado = solucionado;
 	}
 
-	public Date getFecha() {
-		return fecha;
-	}
-
-	public void setFecha(Date fecha) {
-		this.fecha = fecha;
-	}
-
+	
 	public String getMotivoLlamada() {
 		return motivoLlamada;
 	}
