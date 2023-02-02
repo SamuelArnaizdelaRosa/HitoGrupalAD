@@ -13,6 +13,10 @@ import com.mongodb.client.MongoDatabase;
 
 public class FuncionesCRUD {
 
+	/***
+	 * DEVUELVE LA CONEXIÓN CON SERVIDOR Y SI NO EXISTE NINGÚN REGISTRO EN LA COLECCION INSERTA UNO DE PRUEBA
+	 * @return CONEXIÓN MONGODB
+	 */
 	public static MongoClient primeraconexion() {
 		String connectionString = "mongodb://localhost:27017/";
 		MongoClient mongoClient = MongoClients.create(connectionString);
@@ -40,7 +44,13 @@ public class FuncionesCRUD {
 		return mongoClient;
 	}
 	
-	public static boolean registroNuevoCliente(MongoDatabase db, Cliente c, Llamada l) {
+	/***
+	 * 
+	 * @param Base de Datos con Mongo
+	 * @param Cliente a registrar
+	 * @param Llamada a registrar
+	 */
+	public static void registroNuevoCliente(MongoDatabase db, Cliente c, Llamada l) {
 		
 		Document llamadaInicial = new Document("fechaLlamada", new Date())
 				.append("motivoLlamada", l.getMotivoLlamada())
@@ -53,22 +63,22 @@ public class FuncionesCRUD {
 				.append("telefono", c.getTelefono())
 				.append("llamadas",llamadaInicial);
 		db.getCollection("Clientes").insertOne(cliente);
-		return true;
 	}
 	
-	public static String encontrarCliente(MongoDatabase db,String campo,String valor) {
+	/***
+	 * BUSCA A UN CLIENTE EXISTENTE A TRAVÉS DE SU TELÉFONO
+	 * @param Base de datos con Mongo
+	 * @param Telefono que buscar
+	 * @return DOCUMENTO DEL CLIENTE CON ESE TELEFONO
+	 */
+	public static Document encontrarClienteTelf(MongoDatabase db,int telefono) {
 		MongoCollection<Document> col = db.getCollection("Clientes");
 		Document findDocument;
-		if(campo.equals("telefono")) {
-			int telefono = Integer.parseInt(valor);
-			findDocument = new Document(campo,telefono);
-		}else{
-			findDocument = new Document(campo,valor);
-		}
-		
+			findDocument = new Document("telefono",telefono);
+			
 		FindIterable<Document> resultDocument = col.find(findDocument);
 		
-		return resultDocument.first().toJson();
+		return resultDocument.first();
 	}
 	
 }
