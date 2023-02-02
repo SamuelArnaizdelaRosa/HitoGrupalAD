@@ -15,7 +15,7 @@ public class App {
 		MongoClient conexion = FuncionesCRUD.primeraconexion();
 
 		MongoDatabase db = conexion.getDatabase("Watermelon");
-		// db.alumnos.find({fechanacimiento:{$gte:new Date(1970,0,1)}})
+		
 
 		// MENU PRINCIPAL
 
@@ -26,7 +26,8 @@ public class App {
 		do {
 			System.out.println("1- Registrar nuevo cliente");
 			System.out.println("2- Cliente ya registrado");
-			System.out.println("3- Salir de la aplicación");
+			System.out.println("3- Info Llamadas");
+			System.out.println("4- Salir de la aplicación");
 			menu = Utilidades.pedirEntero("Opción:");
 
 			switch (menu) {
@@ -52,13 +53,23 @@ public class App {
 				//EN ESTE MENÚ METED LAS OPERACIONES CON EL CLIENTE
 				FuncionesMenu.menuCliente();
 				break;
-			case 3:
+			case 3: 
+				/**
+				 * AÑADIR AQUI LAS OPCIONES DE BÚSQUEDA PERSONALIZADA DE LLAMADAS
+				 * METER FUNCIONES EN LA CLASE "FUNCIONESMENU"
+				 * +NUMERO TOTAL DE LLAMADAS RECIBIDAS
+				 * +LLAMADAS EN UNA FECHA EN CONCRETO
+				 * IMPORTANTE--->db.alumnos.find({fechanacimiento:{$gte:new Date(1970,0,1)}})
+				 * FILTROS DE LA LLAMADA-->DEPENDE EL PROBLEMA, DEPENDE REPARACION FISICA , DEPENDE SOLUCIÓN
+				 */
+				break;
+			case 4:
 				System.out.println("Saliendo del programa...");
 				System.exit(1);
 			default:
 				System.out.println("Opción incorrecta");
 				break;
 			}
-		} while (menu != 3);
+		} while (menu != 4);
 	}
 }
