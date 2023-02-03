@@ -81,4 +81,15 @@ public class FuncionesCRUD {
 		return resultDocument.first();
 	}
 	
+	public void EliminarCliente(MongoDatabase db, Cliente c) {
+		
+		System.out.println("--- SISTEMA DE ELIMINACION CLIENTE ---");
+			
+		String numero = Utilidades.pedirTexto("Ingresa numero de telefono que identifique al cliente");
+		
+		db.getCollection("Clientes").deleteOne(new Document ("telefono", numero));
+				
+		
+	}
+	
 }

@@ -39,6 +39,44 @@ public class FuncionesMenu {
 		 * -ELIMINAR CLIENTE
 		 * -MOSTRAR LLAMADAS DEL CLIENTE SEGÚN FILTRO
 		 */
+		int opcionelegida;
+		do {
+			System.out.println("-----MENU-----");
+			System.out.println("1 - Añadir nueva llamada");
+			System.out.println("2 - Eliminar cliente");
+			System.out.println("3 - Mostrar llamadas del cliente segun filtro");
+			System.out.println("4 - Salir del menu");
+		
+			opcionelegida = Utilidades.pedirEntero("Selecciona una operación: ");
+			
+			switch (opcionelegida) {
+			
+			case 1:
+				
+				
+				
+				
+				
+				break;
+			case 2:
+			
+				System.out.println("--- SISTEMA DE ELIMINACION CLIENTE ---");
+				
+				String numero = Utilidades.pedirTexto("Ingresa numero de telefono que identifique al cliente");
+				
+				//db.getCollection("Clientes").deleteOne(new Document ("telefono", numero));
+				
+				
+				break;
+			case 3:
+		
+				
+				break;
+			}
+			
+			
+		}while(opcionelegida!=4);
+		
 	}
 	
 }
