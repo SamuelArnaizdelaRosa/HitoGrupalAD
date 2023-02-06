@@ -51,7 +51,7 @@ public class App {
 				FuncionesMenu.mostrarJson(clienteEncontrado);
 				
 				//EN ESTE MENÚ METED LAS OPERACIONES CON EL CLIENTE
-				FuncionesMenu.menuCliente();
+				FuncionesMenu.menuCliente(db);
 				break;
 			case 3: 
 				/**

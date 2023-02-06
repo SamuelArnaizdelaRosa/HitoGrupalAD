@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.mongodb.client.MongoDatabase;
 
 public class FuncionesMenu {
 
@@ -31,7 +32,7 @@ public class FuncionesMenu {
 				Utilidades.pedirBoolean("¿Se ha solucionado el problema?"));
 	}
 	
-	public static void menuCliente() {
+	public static void menuCliente(MongoDatabase db) {
 		
 		/*
 		 * METED AQUI LAS OPCIONES DENTRO DEL MENU CLIENTE Y LLAMAD A LAS FUNCIONES CRUD
@@ -60,11 +61,10 @@ public class FuncionesMenu {
 				break;
 			case 2:
 			
-				System.out.println("--- SISTEMA DE ELIMINACION CLIENTE ---");
 				
-				String numero = Utilidades.pedirTexto("Ingresa numero de telefono que identifique al cliente");
-				
-				//db.getCollection("Clientes").deleteOne(new Document ("telefono", numero));
+				int numero = Utilidades.pedirEntero("Ingresa numero de telefono que identifique al cliente");
+							
+				FuncionesCRUD.EliminarCliente(db, numero);
 				
 				
 				break;

@@ -2,6 +2,7 @@ package hitoGrupal.WaterMelon;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 
 import org.bson.Document;
 
@@ -10,6 +11,8 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.result.DeleteResult;
 
 public class FuncionesCRUD {
 
@@ -81,14 +84,27 @@ public class FuncionesCRUD {
 		return resultDocument.first();
 	}
 	
-	public void EliminarCliente(MongoDatabase db, Cliente c) {
+	public static void EliminarCliente(MongoDatabase db, int numeroTelefono) {
 		
 		System.out.println("--- SISTEMA DE ELIMINACION CLIENTE ---");
 			
-		String numero = Utilidades.pedirTexto("Ingresa numero de telefono que identifique al cliente");
+		//numeroTelefono = Utilidades.pedirEntero("Ingresa numero de telefono que identifique al cliente");
 		
-		db.getCollection("Clientes").deleteOne(new Document ("telefono", numero));
-				
+		//db.getCollection("Clientes").deleteOne(new Document ("telefono", numeroTelefono));
+		
+	//	DBCollection colec = db.getCollection(coleccion);
+		//MongoCollection<Document> col = db.getCollection("Clientes");
+		
+	/*	Document deleteDocument;
+		deleteDocument = new Document("telefono", numeroTelefono);*/
+		
+	//	DeleteResult eliminar = col.deleteOne(deleteDocument);
+		db.getCollection("Clientes").deleteOne(Filters.eq("telefono", numeroTelefono));
+		
+		
+		
+		
+		
 		
 	}
 	
