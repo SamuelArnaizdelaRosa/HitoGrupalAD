@@ -18,7 +18,7 @@ public class FuncionesCRUD {
 	 * @return CONEXIÓN MONGODB
 	 */
 	public static MongoClient primeraconexion() {
-		String connectionString = "mongodb://localhost:27017/";
+		String connectionString = "mongodb://localhost:27017";
 		MongoClient mongoClient = MongoClients.create(connectionString);
 		
 		MongoDatabase db = mongoClient.getDatabase("Watermelon");
@@ -81,7 +81,7 @@ public class FuncionesCRUD {
 		return resultDocument.first();
 	}
 	
-	public void EliminarCliente(MongoDatabase db, Cliente c) {
+	public static void eliminarCliente(MongoDatabase db, Cliente c) {
 		
 		System.out.println("--- SISTEMA DE ELIMINACION CLIENTE ---");
 			
