@@ -117,7 +117,7 @@ public class Utilidades {
 	public static int pedirYear(String mensaje) {
 		int year;
 		do {
-			year = Utilidades.pedirEntero("Dame el a�o: ");
+			year = Utilidades.pedirEntero(mensaje);
 			if (year > LocalDate.now().getYear() || year < 2000) {
 				System.out.println("El a�o tiene que estar entre 2000 y el a�o actual");
 			}
@@ -133,7 +133,7 @@ public class Utilidades {
 	public static int pedirMes(String mensaje) {
 		int mes;
 		do {
-			mes = Utilidades.pedirEntero("Dame el mes");
+			mes = Utilidades.pedirEntero(mensaje);
 			if (mes > 12 || mes <= 0) {
 				System.out.println("El mes tiene que estar entre 1 y 12");
 			}

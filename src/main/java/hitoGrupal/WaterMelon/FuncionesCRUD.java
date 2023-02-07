@@ -49,7 +49,8 @@ public class FuncionesCRUD {
 	 */
 	public static void registroNuevoCliente(MongoDatabase db, Cliente c, Llamada l) {
 
-		Document llamadaInicial = new Document("fechaLlamada", new Date()).append("motivoLlamada", l.getMotivoLlamada())
+		Document llamadaInicial = new Document("fechaLlamada", new Date())
+				.append("motivoLlamada", l.getMotivoLlamada())
 				.append("problema", l.getProblema()).append("reparacionFisisa", l.isReparacionFisica())
 				.append("solucionado", l.isSolucionado());
 

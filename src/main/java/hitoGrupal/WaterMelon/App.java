@@ -1,5 +1,7 @@
 package hitoGrupal.WaterMelon;
 
+import java.util.Date;
+
 import org.bson.Document;
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.LoggerContext;
@@ -7,7 +9,9 @@ import ch.qos.logback.classic.LoggerContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
 /**
@@ -77,6 +81,23 @@ public class App {
 				 * IMPORTANTE--->db.alumnos.find({fechanacimiento:{$gte:new Date(1970,0,1)}})
 				 * FILTROS DE LA LLAMADA-->DEPENDE EL PROBLEMA, DEPENDE REPARACION FISICA , DEPENDE SOLUCIÓN
 				 */
+				MongoCollection<Document> col = db.getCollection("Clientes");
+				
+				int year = Utilidades.pedirYear("Año: ");
+				int mes = Utilidades.pedirMes("Mes: ");
+				int dia = Utilidades.pedirDia("Dia: ",mes,year);
+				
+				
+				Document findDocument = new Document("llamadas.fechaLlamada", 
+						new Document("$gte", new Date(year-1900,mes-1,dia,0,0,0)).append("$lte", new Date(year-1900,mes-1,dia,23,59,59))
+				);
+
+				FindIterable<Document> resultDocument = col.find(findDocument);
+
+				for (Document resultado : resultDocument) {
+					System.out.println(resultado);
+				}
+				
 				break;
 			case 4:
 				System.out.println("Saliendo del programa...");
