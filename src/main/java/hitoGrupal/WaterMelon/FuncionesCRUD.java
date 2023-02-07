@@ -1,7 +1,12 @@
 package hitoGrupal.WaterMelon;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+
 import org.bson.Document;
+
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -33,9 +38,18 @@ public class FuncionesCRUD {
 			Document llamadaInicial = new Document("fechaLlamada", new Date())
 					.append("motivoLlamada", "no funciona la linea").append("problema", "hardware")
 					.append("reparacionFisisa", true).append("solucionado", true);
+			
+			Document LlamadaInicial2 = new Document("fechaLlamada", new Date())
+					.append("motivoLlamada", "Conexión a internet fallida")
+					.append("problema", "No le funciona la linea de internet").append("reparacionFisisa", false)
+					.append("solucionado", true);
+			
+			List<Document> listaLlamadas = new LinkedList<Document>();
+			listaLlamadas.add(LlamadaInicial2);
+			listaLlamadas.add(llamadaInicial);
 
 			clienteInicial = new Document("nombre", "Pepe").append("apellidos", "Pérez Gonzalez")
-					.append("telefono", 699223068).append("llamadas", llamadaInicial);
+					.append("telefono", 699223068).append("llamadas", listaLlamadas);
 			db.getCollection("Clientes").insertOne(clienteInicial);
 		}
 		return mongoClient;
@@ -53,9 +67,11 @@ public class FuncionesCRUD {
 				.append("motivoLlamada", l.getMotivoLlamada())
 				.append("problema", l.getProblema()).append("reparacionFisisa", l.isReparacionFisica())
 				.append("solucionado", l.isSolucionado());
+		
+		
 
 		Document cliente = new Document("nombre", c.getNombre()).append("apellidos", c.getApellidos())
-				.append("telefono", c.getTelefono()).append("llamadas", llamadaInicial);
+				.append("telefono", c.getTelefono()).append("llamadas",llamadaInicial);
 		db.getCollection("Clientes").insertOne(cliente);
 	}
 
