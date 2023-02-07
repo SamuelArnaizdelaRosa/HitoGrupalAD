@@ -36,7 +36,7 @@ public class FuncionesMenu {
 				Utilidades.pedirBoolean("¿Se ha solucionado el problema?"));
 	}
 	
-	public static void menuCliente(MongoDatabase db) {
+	public static void menuCliente(MongoDatabase db, int numero) {
 		
 		/*
 		 * METED AQUI LAS OPCIONES DENTRO DEL MENU CLIENTE Y LLAMAD A LAS FUNCIONES CRUD
@@ -57,10 +57,12 @@ public class FuncionesMenu {
 			switch (opcionelegida) {
 			
 			case 1:
+				crearLlamada();
+				FuncionesCRUD.ActualizarCliente(db, numero);
 				break;
-			case 2:
-				int numero = Utilidades.pedirEntero("Ingresa numero de telefono que identifique al cliente");				
+			case 2:		
 				FuncionesCRUD.EliminarCliente(db, numero);
+				System.out.println("Se ha eliminado el cliente con el número de teléfono: "+numero);
 				break;
 			case 3:	
 				break;
