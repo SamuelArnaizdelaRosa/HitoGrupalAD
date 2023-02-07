@@ -13,6 +13,7 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
 
 
 public class FuncionesCRUD {
@@ -68,10 +69,11 @@ public class FuncionesCRUD {
 				.append("problema", l.getProblema()).append("reparacionFisisa", l.isReparacionFisica())
 				.append("solucionado", l.isSolucionado());
 		
-		
+		List<Document> listaLlamadas = new LinkedList<Document>();
+		listaLlamadas.add(llamadaInicial);
 
 		Document cliente = new Document("nombre", c.getNombre()).append("apellidos", c.getApellidos())
-				.append("telefono", c.getTelefono()).append("llamadas",llamadaInicial);
+				.append("telefono", c.getTelefono()).append("llamadas",listaLlamadas);
 		db.getCollection("Clientes").insertOne(cliente);
 	}
 
@@ -92,11 +94,16 @@ public class FuncionesCRUD {
 		return resultDocument.first();
 	}
 
-	public static void ActualizarCliente(MongoDatabase db, int numeroTelefono) {
-		
-		System.out.println("--- SISTEMA DE ACTUALIZACIÓN DE CLIENTE ---");
-		
-		//db.getCollection("Clientes").updateOne(new Document ))
+	public static void ActualizarCliente(MongoDatabase db, int numeroTelefono, Llamada llamada) {
+		Date fecha = new Date();
+
+		Document llamadaNueva = new Document("fechaLlamada", fecha)
+				.append("motivoLlamada", llamada.getMotivoLlamada()).append("problema", llamada.getProblema())
+				.append("reparacionFisisa", llamada.isReparacionFisica())
+				.append("solucionado", llamada.isSolucionado());
+
+		db.getCollection("Clientes").updateOne(Filters.eq("telefono", numeroTelefono), Updates.addToSet("llamadas",llamadaNueva));
+		System.out.println("\nLlamada añadida correctamente.");
 	}
 	
 	public static void EliminarCliente(MongoDatabase db, int numeroTelefono) {

@@ -57,8 +57,9 @@ public class FuncionesMenu {
 			switch (opcionelegida) {
 			
 			case 1:
-				crearLlamada();
-				FuncionesCRUD.ActualizarCliente(db, numero);
+				System.out.println("--- SISTEMA DE ACTUALIZACIÓN DE CLIENTE ---");
+				FuncionesCRUD.ActualizarCliente(db, numero, crearLlamada());
+
 				break;
 			case 2:		
 				FuncionesCRUD.EliminarCliente(db, numero);
