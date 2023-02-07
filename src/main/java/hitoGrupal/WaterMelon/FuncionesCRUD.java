@@ -76,6 +76,13 @@ public class FuncionesCRUD {
 		return resultDocument.first();
 	}
 
+	public static void ActualizarCliente(MongoDatabase db, int numeroTelefono) {
+		
+		System.out.println("--- SISTEMA DE ACTUALIZACIÓN DE CLIENTE ---");
+		
+		//db.getCollection("Clientes").updateOne(new Document ))
+	}
+	
 	public static void EliminarCliente(MongoDatabase db, int numeroTelefono) {
 
 		System.out.println("--- SISTEMA DE ELIMINACION CLIENTE ---");
@@ -96,7 +103,6 @@ public class FuncionesCRUD {
 
 		// DeleteResult eliminar = col.deleteOne(deleteDocument);
 		db.getCollection("Clientes").deleteOne(Filters.eq("telefono", numeroTelefono));
-
 	}
 
 }

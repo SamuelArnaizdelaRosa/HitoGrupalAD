@@ -36,7 +36,7 @@ public class App {
 
 		System.out.println("MENÚ PRINCIPAL WATERMELON");
 
-		int menu;
+		int menu, telefono;
 
 		do {
 			System.out.println("1- Registrar nuevo cliente");
@@ -60,14 +60,14 @@ public class App {
 				}
 				break;
 			case 2:
-				Document clienteEncontrado = FuncionesCRUD.encontrarClienteTelf(db,Utilidades.pedirEntero("Número de teléfono del cliente:"));
+				Document clienteEncontrado = FuncionesCRUD.encontrarClienteTelf(db, telefono = Utilidades.pedirEntero("Número de teléfono del cliente:"));
 				
 				if (clienteEncontrado != null) {
 					
 					//Poner bonito el JSON
 					FuncionesMenu.mostrarJson(clienteEncontrado);
 					//EN ESTE MENÚ METED LAS OPERACIONES CON EL CLIENTE
-					FuncionesMenu.menuCliente(db);
+					FuncionesMenu.menuCliente(db, telefono);
 				} else {
 					System.out.println("***NO SE HA ENCONTRADO NINGUN RESULTADO***");
 				}
