@@ -1,6 +1,11 @@
 package hitoGrupal.WaterMelon;
 
 import org.bson.Document;
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.LoggerContext;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoDatabase;
@@ -11,7 +16,13 @@ import com.mongodb.client.MongoDatabase;
  */
 public class App {
 	public static void main(String[] args) {
-
+		
+		//Quitar log
+		LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
+		Logger rootLogger = loggerContext.getLogger("org.mongodb.driver");
+		((ch.qos.logback.classic.Logger) rootLogger).setLevel(Level.OFF);
+		
+		//Conexion
 		MongoClient conexion = FuncionesCRUD.primeraconexion();
 
 		MongoDatabase db = conexion.getDatabase("Watermelon");
@@ -45,13 +56,17 @@ public class App {
 				}
 				break;
 			case 2:
-				Document clienteEncontrado = FuncionesCRUD.encontrarClienteTelf(db,
-						Utilidades.pedirEntero("Número de teléfono del cliente:"));
-				System.out.println("\n***MOSTRANDO DATOS DEL CLIENTE Y SUS LLAMADAS***");
-				FuncionesMenu.mostrarJson(clienteEncontrado);
+				Document clienteEncontrado = FuncionesCRUD.encontrarClienteTelf(db,Utilidades.pedirEntero("Número de teléfono del cliente:"));
 				
-				//EN ESTE MENÚ METED LAS OPERACIONES CON EL CLIENTE
-				FuncionesMenu.menuCliente(db);
+				if (clienteEncontrado != null) {
+					
+					//Poner bonito el JSON
+					FuncionesMenu.mostrarJson(clienteEncontrado);
+					//EN ESTE MENÚ METED LAS OPERACIONES CON EL CLIENTE
+					FuncionesMenu.menuCliente(db);
+				} else {
+					System.out.println("***NO SE HA ENCONTRADO NINGUN RESULTADO***");
+				}
 				break;
 			case 3: 
 				/**

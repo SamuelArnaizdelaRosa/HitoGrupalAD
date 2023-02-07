@@ -11,12 +11,16 @@ import com.mongodb.client.MongoDatabase;
 public class FuncionesMenu {
 
 	public static void mostrarJson(Document documento) {
-		String resultado = documento.toJson();
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		JsonElement je = JsonParser.parseString(resultado);
-		String prettyJsonString = gson.toJson(je);
-		
-		System.out.println(prettyJsonString);
+		try {
+			String resultado = documento.toJson();
+			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			JsonElement je = JsonParser.parseString(resultado);
+			String prettyJsonString = gson.toJson(je);
+			System.out.println(prettyJsonString);
+		}
+		catch (Exception e) {
+			System.out.println("***Error con el JSON***");
+		}
 	}
 	
 	public static Cliente crearCliente() {
@@ -53,30 +57,15 @@ public class FuncionesMenu {
 			switch (opcionelegida) {
 			
 			case 1:
-				
-				
-				
-				
-				
 				break;
 			case 2:
-			
-				
-				int numero = Utilidades.pedirEntero("Ingresa numero de telefono que identifique al cliente");
-							
+				int numero = Utilidades.pedirEntero("Ingresa numero de telefono que identifique al cliente");				
 				FuncionesCRUD.EliminarCliente(db, numero);
-				
-				
 				break;
-			case 3:
-		
-				
+			case 3:	
 				break;
 			}
 			
-			
-		}while(opcionelegida!=4);
-		
+		}while(opcionelegida!=4);	
 	}
-	
 }
