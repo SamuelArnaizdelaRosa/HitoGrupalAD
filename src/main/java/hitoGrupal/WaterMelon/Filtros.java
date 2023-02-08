@@ -102,7 +102,7 @@ public class Filtros {
 	public static void filtrosLlamadasFecha(MongoDatabase db,int year,int mes,int dia) {
 		MongoCollection<Document> col = db.getCollection("Clientes");
 		
-		//Filtros Totales
+		//Filtros fecha
 		AggregateIterable<Document> totales = col.aggregate(
 		    Arrays.asList(
 		        Aggregates.unwind("$llamadas"),
@@ -227,7 +227,7 @@ public class Filtros {
 	public static void filtrosLlamadasFechaClientes (MongoDatabase db,int telefono,int year,int mes,int dia) {
 		MongoCollection<Document> col = db.getCollection("Clientes");
 		
-		//Filtros Totales
+		//Filtros Fechas
 		AggregateIterable<Document> totales = col.aggregate(
 		    Arrays.asList(
 		        Aggregates.unwind("$llamadas"),

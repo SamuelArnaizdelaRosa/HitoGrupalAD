@@ -51,7 +51,7 @@ public class FuncionesMenu {
 			System.out.println("1 - Añadir nueva llamada");
 			System.out.println("2 - Eliminar cliente");
 			System.out.println("3 - Mostrar llamadas del cliente segun los filtros");
-			System.out.println("4 - Mostrar llamadas del cleinte en una ffecha");
+			System.out.println("4 - Mostrar llamadas del cleinte en una fecha");
 			System.out.println("5 - Salir del menu");
 		
 			opcionelegida = Utilidades.pedirEntero("Selecciona una operación: ");

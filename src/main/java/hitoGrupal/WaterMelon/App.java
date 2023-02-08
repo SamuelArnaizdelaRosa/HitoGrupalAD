@@ -22,8 +22,7 @@ public class App {
 		((ch.qos.logback.classic.Logger) rootLogger).setLevel(Level.OFF);
 		
 		//Conexion
-		MongoClient conexion = FuncionesCRUD.primeraconexion();
-
+		MongoClient conexion = FuncionesCRUD.primeraconexion();	
 		MongoDatabase db = conexion.getDatabase("Watermelon");
 
 		// MENU PRINCIPAL
@@ -34,7 +33,7 @@ public class App {
 			System.out.println("1- Registrar nuevo cliente");
 			System.out.println("2- Cliente ya registrado");
 			System.out.println("3- Mostrar todas las llamadas segun los filtros");
-			System.out.println("4- Mostrar las llamadas en una ffecha");
+			System.out.println("4- Mostrar las llamadas en una fecha");
 			System.out.println("5- Salir de la aplicación");
 			menu = Utilidades.pedirEntero("Opción:");
 
