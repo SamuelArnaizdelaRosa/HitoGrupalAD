@@ -95,7 +95,7 @@ public class Filtros {
 		);
 		
 		for (Document resultado : solucionado_no) {
-			System.out.println("Llamadas solucionadas: "+resultado.get("resultado"));
+			System.out.println("Llamadas no solucionadas: "+resultado.get("resultado"));
 		}
 	}
 	
@@ -220,7 +220,7 @@ public class Filtros {
 		);
 		
 		for (Document resultado : solucionado_no) {
-			System.out.println("Llamadas solucionadas: "+resultado.get("resultado"));
+			System.out.println("Llamadas no solucionadas: "+resultado.get("resultado"));
 		}
 	}
 	
