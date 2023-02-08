@@ -1,20 +1,14 @@
 package hitoGrupal.WaterMelon;
 
-import java.util.Date;
-
 import org.bson.Document;
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.LoggerContext;
-import ch.qos.logback.core.filter.Filter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-
 /**
  * Hello world!
  *
@@ -31,7 +25,6 @@ public class App {
 		MongoClient conexion = FuncionesCRUD.primeraconexion();
 
 		MongoDatabase db = conexion.getDatabase("Watermelon");
-		MongoCollection<Document> col = db.getCollection("Clientes");
 
 		// MENU PRINCIPAL
 		int menu, telefono;
@@ -40,8 +33,8 @@ public class App {
 			System.out.println("-----MENÚ PRINCIPAL WATERMELON-----");
 			System.out.println("1- Registrar nuevo cliente");
 			System.out.println("2- Cliente ya registrado");
-			System.out.println("3- Info Llamadas");
-			System.out.println("4- Info Llamadas por fecha");
+			System.out.println("3- Mostrar todas las llamadas segun los filtros");
+			System.out.println("4- Mostrar las llamadas en una ffecha");
 			System.out.println("5- Salir de la aplicación");
 			menu = Utilidades.pedirEntero("Opción:");
 
@@ -73,59 +66,14 @@ public class App {
 				}
 				break;
 			case 3: 
-				Document mostrar = new Document("_id",0)
-					.append("nombre", 0)
-					.append("apellidos", 0)
-					.append("telefono", 0)
-				;
-				
-				
-				FindIterable<Document> totales = col.find().projection(mostrar);
-				System.out.println("Totales: "+col.countDocuments());
-				
-				Document condicion_fisica = new Document("llamadas.reparacionFisica",true);
-				System.out.println("Necesita reparacion fisica: "+col.countDocuments(condicion_fisica));
-				
-				for (Document resultado : totales) {
-					FuncionesMenu.mostrarJson(resultado);
-				}
-				
-				/*Document condicion_NOfisica = new Document("reparacionFisica",true);
-				FindIterable<Document> NOfisica = col.find(condicion_NOfisica).projection(mostrar);
-				System.out.println("No necesita reparacion fisica: "+FuncionesMenu.contar(NOfisica));
-				
-				Document condicion_hardware = new Document("problema","hardware");
-				FindIterable<Document> hardware = col.find(condicion_hardware).projection(mostrar);
-				System.out.println("Hadware: "+FuncionesMenu.contar(hardware));
-				
-				Document condicion_software = new Document("problema","software");
-				FindIterable<Document> software = col.find(condicion_software).projection(mostrar);
-				System.out.println("software: "+FuncionesMenu.contar(software));
-				
-				Document condicion_solucionado = new Document("reparacionFisica",true);	
-				FindIterable<Document> solucionado = col.find(condicion_solucionado).projection(mostrar);
-				System.out.println("Solucionados: "+FuncionesMenu.contar(solucionado));
-				
-				Document condicion_NOsoculcionado = new Document("reparacionFisica",true);
-				FindIterable<Document> Nosolucionado = col.find(condicion_NOsoculcionado).projection(mostrar);
-				System.out.println("No solucionados: "+FuncionesMenu.contar(Nosolucionado));*/
-				
+				Filtros.filtrosLlamadas(db);
 				break;
 			case 4: 
 				int year = Utilidades.pedirYear("Año: ");
 				int mes = Utilidades.pedirMes("Mes: ");
 				int dia = Utilidades.pedirDia("Dia: ",mes,year);
 				
-				Document mostrar_date = new Document("llamadas.fechaLlamada", 
-						new Document("$gte", new Date(year-1900,mes-1,dia,0,0,0))
-						.append("$lte", new Date(year-1900,mes-1,dia,23,59,59))
-				);
-
-				FindIterable<Document> resultDocument2 = col.find(mostrar_date);
-
-				for (Document resultado : resultDocument2) {
-					FuncionesMenu.mostrarJson(resultado);
-				}
+				Filtros.filtrosLlamadasFecha(db,year,mes,dia);
 				
 				break;
 			case 5:

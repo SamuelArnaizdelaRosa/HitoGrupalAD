@@ -38,11 +38,11 @@ public class FuncionesCRUD {
 
 			Document llamadaInicial = new Document("fechaLlamada", new Date())
 					.append("motivoLlamada", "no funciona la linea").append("problema", "hardware")
-					.append("reparacionFisisa", true).append("solucionado", true);
+					.append("reparacionFisica", true).append("solucionado", true);
 			
 			Document LlamadaInicial2 = new Document("fechaLlamada", new Date())
 					.append("motivoLlamada", "Conexión a internet fallida")
-					.append("problema", "No le funciona la linea de internet").append("reparacionFisisa", false)
+					.append("problema", "software").append("reparacionFisica", false)
 					.append("solucionado", true);
 			
 			List<Document> listaLlamadas = new LinkedList<Document>();
@@ -66,7 +66,7 @@ public class FuncionesCRUD {
 
 		Document llamadaInicial = new Document("fechaLlamada", new Date())
 				.append("motivoLlamada", l.getMotivoLlamada())
-				.append("problema", l.getProblema()).append("reparacionFisisa", l.isReparacionFisica())
+				.append("problema", l.getProblema()).append("reparacionFisica", l.isReparacionFisica())
 				.append("solucionado", l.isSolucionado());
 		
 		List<Document> listaLlamadas = new LinkedList<Document>();
@@ -99,7 +99,7 @@ public class FuncionesCRUD {
 
 		Document llamadaNueva = new Document("fechaLlamada", fecha)
 				.append("motivoLlamada", llamada.getMotivoLlamada()).append("problema", llamada.getProblema())
-				.append("reparacionFisisa", llamada.isReparacionFisica())
+				.append("reparacionFisica", llamada.isReparacionFisica())
 				.append("solucionado", llamada.isSolucionado());
 
 		db.getCollection("Clientes").updateOne(Filters.eq("telefono", numeroTelefono), Updates.addToSet("llamadas",llamadaNueva));
@@ -109,22 +109,6 @@ public class FuncionesCRUD {
 	public static void EliminarCliente(MongoDatabase db, int numeroTelefono) {
 
 		System.out.println("--- SISTEMA DE ELIMINACION CLIENTE ---");
-
-		// numeroTelefono = Utilidades.pedirEntero("Ingresa numero de telefono que
-		// identifique al cliente");
-
-		// db.getCollection("Clientes").deleteOne(new Document ("telefono",
-		// numeroTelefono));
-
-		// DBCollection colec = db.getCollection(coleccion);
-		// MongoCollection<Document> col = db.getCollection("Clientes");
-
-		/*
-		 * Document deleteDocument; deleteDocument = new Document("telefono",
-		 * numeroTelefono);
-		 */
-
-		// DeleteResult eliminar = col.deleteOne(deleteDocument);
 		db.getCollection("Clientes").deleteOne(Filters.eq("telefono", numeroTelefono));
 	}
 
